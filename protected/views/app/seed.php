@@ -13,7 +13,7 @@ $this->breadcrumbs=array(
 <?php echo CHtml::beginForm(); ?>
     <input type="hidden" name="seed" value="1">
     <div class="row submit">
-        <?php echo CHtml::submitButton('Search'); ?>
+        <?php echo CHtml::submitButton('Seed'); ?>
     </div>
  
 <?php echo CHtml::endForm(); ?>
