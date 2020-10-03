@@ -9,9 +9,10 @@ class m200930_092752_create_dummy_products_table extends CDbMigration
             'nom' => 'string NOT NULL',
             'titre' => 'string NOT NULL',
 			'description' => 'text',
-			'date_debut' => 'datetime',
-			'date_expiration' => 'datetime',
-			'activation' => 'boolean'
+			'date_debut' => 'date',
+			'date_expiration' => 'date',
+			'activation' => 'boolean',
+			'status' => 'boolean'
 		));
 	}
 

@@ -8,6 +8,7 @@ class Search extends CActiveRecord
 	public $date_debut;
 	public $date_expiration;
 	public $activation;
+	public $status;
 
 	public static function model($className=__CLASS__)
     {

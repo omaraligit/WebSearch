@@ -4,6 +4,9 @@
 .w-100{
     width: 100%;
 }
+.text-center{
+    text-align: center;
+}
 .s-alert{
     background: #dadada;
     font-weight: bold;
@@ -14,4 +17,48 @@
 .row-flex{
     display: flex;
     justify-content: space-between;
+}
+.tag{
+    background: #dadada;
+    font-weight: bold;
+    border: 1px solid gray;
+    border-radius: 5px;
+    width: 100%;
+    display: block;
+    text-align: center;
+    padding: 2px;
+}
+.activation{
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    display: block;
+}
+.active{
+    background: green;
+}
+.not-active{
+    background: orange;
+}
+.activation-col{
+    display: flex;
+    justify-content: center;
+}
+.pagination{
+    display: inline-block;
+}
+.page-item{
+    background: #dadada;
+    color: black;
+    text-decoration: none;
+    padding: 3px;
+    border: 1px solid gray;
+}
+.page-item:hover{
+    background: #e1e1e1;
+    color: black !important;
+    opacity: .7;
+}
+.active-link{
+    border: 2px solid red;
 }

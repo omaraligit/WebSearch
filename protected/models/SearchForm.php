@@ -13,7 +13,8 @@ class SearchForm extends CFormModel
 	public $date_debut;
 	public $date_expiration;
 	public $activation;
-
+	public $status;
+	
     
 	/**
 	 * Declares the validation rules.
