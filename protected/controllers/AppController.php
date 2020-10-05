@@ -3,7 +3,17 @@
 class AppController extends Controller
 {
 
-	public $pagerSize = 5;
+	/**
+	 * the number of rows to show per page
+	 * the number is used trought the app 
+	 * it can be migrtated to config file for more generalisation
+	 */
+	public $pagerSize = 10;
+	
+	/**
+	 * database seeder
+	 * this can be accessed from /index.php?r=app/seed
+	 */
 	public function actionSeed()
 	{
 		// filling the database with dummy data
@@ -22,10 +32,14 @@ class AppController extends Controller
 				$dummy_product->save();
 			}
 		}
-    	$this->render('seed',array('model'=>$model));
+    	$this->render('seed');
 	}
 
-	
+	/**
+	 * this is handling the search page
+	 * @return string
+	 * more helper function are included down the file
+	 */
 	public function actionSearch()
 	{
 		$model=new SearchForm;
@@ -33,23 +47,22 @@ class AppController extends Controller
 		$searchCounter = null;
 		if(isset($_GET['SearchForm']))
 		{
-			// récupère les données postées par l'utilisateur
-			$model->attributes=$_GET['SearchForm'];
 			// creation de la chaine sql pour retirer les >,<,=,<=,>=,<>...
-			// pour sela un function helper sera introduit
+			// pour sela une function helper getSQLConditions(GET request params)
 			$sqlConditions = '1=1 ' . $this->getSQLConditions($_GET['SearchForm']);
+			// creaton des param selen les champs present dans la requet sql getSQLConditionsParamsArray(GET request params)
 			$sqlConditionsParamsArray = $this->getSQLConditionsParamsArray($_GET['SearchForm']);
-			// add sql part foe the active - non active records
+			// add sql part for the active / non active records
 			if ($_GET['SearchForm']['activation'] != '') {
 				$sqlConditions .= ' and activation = :activation';
 				$sqlConditionsParamsArray[':activation'] = $_GET['SearchForm']['activation'];
 			}
-			// calculer offset
+			// calculer offset from the selected page in the pagination
 			$offset =(isset($_GET['page'])) ? ($this->pagerSize*$_GET['page']-$this->pagerSize):0;
-			var_dump($offset);
-			// retirer les donnees
-			// trouve les lignes
+			
+			// run sql and find results to show to user
 			$search=Search::model()->findAll($sqlConditions. ' limit '.$this->pagerSize.' offset '. $offset,$sqlConditionsParamsArray);
+			// count results to use for pagination 
 			$searchCounter=Search::model()->count($sqlConditions,$sqlConditionsParamsArray);
 		}
 		// affiche le formulaire de recherche plus les resultats if wee found any
@@ -92,8 +105,8 @@ class AppController extends Controller
 			}
 		}
 
-		// wee always have a trailing and at the end
-		// to remouve that we trim the string from start - 4 charachters and + a trailing space 
+		// wee always have a trailing 'and' at the end
+		// to remouve that we trim the string from start - 4 charachters + a trailing space 
 		// return substr($sqlHelper,0,strlen($sqlHelper)-4);
 		return $sqlHelper;
 	}
